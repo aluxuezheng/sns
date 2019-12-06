@@ -82,7 +82,7 @@ describe("RangeHighlights Render Tests", function() {
         testSlider4 = null;
     });
 
-    //test the visibility of ranges e.g. : { "start": 23, "end": 15 } - out of range - not visible
+    //testUtil the visibility of ranges e.g. : { "start": 23, "end": 15 } - out of range - not visible
     function testHighlightedElements(sliderId, isHorizontal, expections) {
 
         //check elements exist
@@ -136,7 +136,7 @@ describe("RangeHighlights Render Tests", function() {
         return Math.round(100 * height / parentHeight) + '%';
     }
 
-    //test both testSlider
+    //testUtil both testSlider
     testHighlightedElements('#slider1', true, [{
         isVisible: true,
         start: '10%',

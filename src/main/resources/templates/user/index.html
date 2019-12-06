@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{Layout}">
 <body>
 <section layout:fragment="content">
@@ -24,46 +25,115 @@
                     <table class="table table-hover">
                         <tr>
                             <th>ID</th>
-                            <th>User</th>
-                            <th>Date</th>
-                            <th>Status</th>
-                            <th>Reason</th>
+                            <th>昵称</th>
+                            <th>手机</th>
+                            <th>头像</th>
+                            <th>激活</th>
+                            <th>封禁</th>
                         </tr>
-                        <tr>
-                            <td>183</td>
-                            <td>John Doe</td>
-                            <td>11-7-2014</td>
-                            <td><span class="label label-success">Approved</span></td>
-                            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                        </tr>
-                        <tr>
-                            <td>219</td>
-                            <td>Alexander Pierce</td>
-                            <td>11-7-2014</td>
-                            <td><span class="label label-warning">Pending</span></td>
-                            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                        </tr>
-                        <tr>
-                            <td>657</td>
-                            <td>Bob Doe</td>
-                            <td>11-7-2014</td>
-                            <td><span class="label label-primary">Approved</span></td>
-                            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                        </tr>
-                        <tr>
-                            <td>175</td>
-                            <td>Mike Doe</td>
-                            <td>11-7-2014</td>
-                            <td><span class="label label-danger">Denied</span></td>
-                            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                        <tr th:each="user : ${users}">
+                            <td th:text="${user.id}"></td>
+                            <td th:text="${user.nickname}"></td>
+                            <td th:text="${user.mobile}"></td>
+                            <td><img th:src="@{'https:' + ${user.getAvatar()}}"/></td>
+                            <td><span th:text="${user.isActivated == 1 ? '已激活' : '未激活'}"
+                                      class="label" th:classappend="${user.isActivated == 1 ? 'label-success' : 'label-warning'}"></span></td>
+                            <td><span th:text="${user.isBanned == 1 ? '封禁' : '正常'}"
+                                      class="label" th:classappend="${user.isBanned == 1 ? 'label-warning' : 'label-success'}"></span></td>
                         </tr>
                     </table>
                 </div>
-                <!-- /.box-body -->
             </div>
-            <!-- /.box -->
         </div>
     </div>
+    <ul class="pagination" th:if="${users.totalPages lt 7}">
+        <!-- 上一页 -->
+        <li class="page-item" th:classappend="${users.isFirst()} ? 'disabled' : ''">
+            <a th:href="@{'/admin/users?page=' + ${(users.number - 1)}}" class="page-link" th:attr="pageIndex=${users.number} - 1" aria-label="Previous">
+                <span aria-hidden="true">«</span>
+            </a>
+        </li>
+
+        <li class="page-item" th:each="i : ${#numbers.sequence(1, users.totalPages)}"
+            th:classappend="${(users.number + 1) eq i} ? 'active' : ''" >
+            <a class="page-link" th:attr="pageIndex=${i} - 1" href="javascript:void(0);">
+                <span th:text="${i}"></span>
+            </a>
+        </li>
+
+        <li class="page-item" th:classappend="${users.isLast()} ? 'disabled' : ''">
+            <a href="javascript:void(0);" class="page-link" th:attr="pageIndex=${users.number} + 1" aria-label="Next">
+                <span aria-hidden="true">»</span>
+            </a>
+        </li>
+    </ul>
+    <ul class="pagination" th:if="${users.totalPages gt 7}" >
+        <li class="page-item" th:classappend="${users.isFirst()} ? 'disabled' : ''">
+            <a th:href="@{'/admin/users?page=' + ${users.number - 1}}" class="page-link" th:attr="pageIndex=${users.number} - 1" aria-label="Previous">
+                <span aria-hidden="true">«</span>
+            </a>
+        </li>
+
+        <li class="page-item" th:classappend="${(users.number + 1) eq 1} ? 'active' : ''" >
+            <a th:href="@{'/admin/users'}" class="page-link" th:attr="pageIndex=0">1</a>
+        </li>
+
+        <li class="page-item" th:if="${(users.number + 1) le 4}" th:each="i : ${#numbers.sequence(2,5)}"
+            th:classappend="${(users.number + 1) eq i} ? 'active' : ''" >
+            <a class="page-link" th:href="@{'/admin/users?page=' + ${i - 1}}" th:attr="pageIndex=${i} - 1">
+                <span th:text="${i}"></span>
+            </a>
+        </li>
+
+        <li class="page-item disabled" th:if="${(users.number + 1) le 4}">
+            <a href="javascript:void(0);" class="page-link">
+                <span aria-hidden="true">...</span>
+            </a>
+        </li>
+
+        <li class="page-item disabled" th:if="${(users.totalPages - (users.number + 1)) le 3}">
+            <a href="javascript:void(0);" class="page-link">
+                <span aria-hidden="true">...</span>
+            </a>
+        </li>
+        <li class="page-item" th:if="${(users.totalPages - (users.number + 1)) le 3}" th:each="i : ${#numbers.sequence(users.totalPages - 4, users.totalPages - 1)}"
+            th:classappend="${(users.number + 1) eq i} ? 'active' : ''" >
+            <a class="page-link" th:href="@{'/admin/users?page=' + ${i - 1}}" th:attr="pageIndex=${i} - 1">
+                <span th:text="${i}"></span>
+            </a>
+        </li>
+
+        <li class="page-item disabled" th:if="${((users.number + 1) gt 4) && ((users.totalPages - (users.number + 1)) gt 3 )}">
+            <a href="javascript:void(0);" class="page-link">
+                <span aria-hidden="true">...</span>
+            </a>
+        </li>
+        <li class="page-item" th:if="${((users.number + 1) gt 4) && ((users.totalPages - (users.number + 1)) gt 3 )}" >
+            <a th:href="@{'/admin/users?page=' + ${users.number}}" class="page-link" th:attr="pageIndex=${users.number}">[[${users.number}]]</a>
+        </li>
+        <li class="page-item active" th:if="${((users.number + 1) gt 4) && ((users.totalPages - (users.number + 1)) gt 3 )}">
+            <a th:href="@{'/admin/users?page=' + ${users.number + 1}}" class="page-link" th:attr="pageIndex=${users.number} + 1">[[${users.number + 1}]]</a>
+        </li>
+        <li class="page-item" th:if="${((users.number + 1) gt 4) && ((users.totalPages - (users.number + 1)) gt 3 )}">
+            <a th:href="@{'/admin/users?page=' + ${users.number + 1}}" class="page-link" th:attr="pageIndex=${users.number} + 2">[[${users.number + 2}]]</a>
+        </li>
+
+        <li class="page-item disabled"  th:if="${((users.number + 1) gt 4) && ((users.totalPages - (users.number + 1)) gt 3 )}">
+            <a href="javascript:void(0);" class="page-link">
+                <span aria-hidden="true">...</span>
+            </a>
+        </li>
+
+        <li class="page-item" th:classappend="${(users.number + 1) eq users.totalPages} ? 'active' : ''" >
+            <a th:href="@{'/admin/users?page=' + ${users.totalPages - 1}}" class="page-link" th:attr="pageIndex=${users.totalPages} - 1">[[${users.totalPages}]]</a>
+        </li>
+
+        <li class="page-item" th:classappend="${users.isLast()} ? 'disabled' : ''">
+            <a th:href="@{'/admin/users?page=' + ${(users.number + 1)}}" class="page-link" th:attr="pageIndex=${users.number} + 1" aria-label="Next">
+                <span aria-hidden="true">»</span>
+            </a>
+        </li>
+    </ul>
 </section>
 </body>
 </html>

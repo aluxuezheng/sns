@@ -20,7 +20,7 @@ describe("Element Data Attributes Tests", function() {
   it("reads the 'data-slider-step' property and sets it on slider", function() {
 
     slider = $("#stepSlider").slider();
-    //TODO How do you test this? Maybe manually trigger a slideChange event?
+    //TODO How do you testUtil this? Maybe manually trigger a slideChange event?
     expect(true).toBeTruthy();
   });
 

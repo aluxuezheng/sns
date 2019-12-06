@@ -4,7 +4,7 @@ if (typeof module === "object" && typeof module.exports === "object") {
   var JSDOM = jsdom.JSDOM;
   var $ = require('jquery')((new JSDOM('<!DOCTYPE html><p>Hello world</p>')).window);
 }
-/* end-test-code */
+/* end-testUtil-code */
 /**
  * Color manipulation helper class
  *
@@ -671,6 +671,6 @@ Color.prototype = {
     return false;
   }
 };
-/* test-code */
+/* testUtil-code */
 module.exports = Color;
-/* end-test-code */
+/* end-testUtil-code */

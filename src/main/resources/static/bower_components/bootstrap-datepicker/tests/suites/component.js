@@ -43,7 +43,7 @@ test('Dont activation (by disabled) by component', function(){
     ok(!this.picker.is(':visible'));
 });
 
-test('simple keyboard nav test', function(){
+test('simple keyboard nav testUtil', function(){
     var target;
 
     // Keyboard nav only works with non-readonly inputs
@@ -137,7 +137,7 @@ test('Navigating to/from decade view', function(){
     datesEqual(this.dp.viewDate, UTCDate(2012, 2, 31));
     datesEqual(this.dp.dates[0], UTCDate(2012, 2, 31));
 
-    // Change years to test internal state changes
+    // Change years to testUtil internal state changes
     target = this.picker.find('.datepicker-years tbody span:contains(2011)');
     target.click();
     equal(this.dp.viewMode, 1);

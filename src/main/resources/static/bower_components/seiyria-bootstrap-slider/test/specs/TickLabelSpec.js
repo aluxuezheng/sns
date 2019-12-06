@@ -32,7 +32,7 @@ describe("Tick Label Render Tests", function() {
 		testSliderV = null;
 	});
 		
-	//e.g. testOrientation('horizontal', 2) will test the horizontal
+	//e.g. testOrientation('horizontal', 2) will testUtil the horizontal
 	//code path using control with the id testSlider2 
 	function testOrientation(orientation) {
 		var sliderIndex = orientation.toLowerCase() === 'horizontal' ? 1 : 2;
@@ -68,7 +68,7 @@ describe("Tick Label Render Tests", function() {
 		});
 	}
 	
-	//test both horizontal and vertical orientations
+	//testUtil both horizontal and vertical orientations
 	testOrientation('horizontal');
 	testOrientation('vertical');
 });

@@ -1,4 +1,4 @@
-describe("Scrollable test", function() {
+describe("Scrollable testUtil", function() {
     var testSlider;
     var sliderHandleTopPos;
     var sliderHandleLeftPos;

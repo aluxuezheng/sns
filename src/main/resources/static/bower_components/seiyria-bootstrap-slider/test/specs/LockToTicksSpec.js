@@ -133,27 +133,27 @@ describe("Slider with lock_to_ticks: true tests", function() {
  * 
  * When the values are in the range from 0 to 10 and the step is 0.1, every value
  * can be represented as 1% of the range. For example, 5.5 is 55% and 5.6 is 56%. 
- * This makes it easier to test the behaviour of tick locking.
+ * This makes it easier to testUtil the behaviour of tick locking.
  * 
  * The mouse clicks are based on a percentage that represents where the user clicked
  * on the slider (60% = 6.0). The percentage is then used to calculate the coordinates
  * for the mouse events (mousedown, mousemove, and mouseup).
  * 
- * These tests are setup to test for all combinations of relevant slider configurations:
+ * These tests are setup to testUtil for all combinations of relevant slider configurations:
  * single/range, horizontal/vertical orientation, LTR/RTL, and ordered/reversed.
  * The tests also check that the handles have the correct positioning, which should
  * match the ticks that the handles lock to.
  * 
- * The test data was carefully chosen based on following the test logic below.
+ * The testUtil data was carefully chosen based on following the testUtil logic below.
  * 
- * The test logic for sliders:
+ * The testUtil logic for sliders:
  * - Clicking to the left of the handle should not change its value
  * - Clicking to the left of the handle should change its value and lock to another tick
  * - Ditto for clicking to the right of the handle
  * 
- * For range sliders, the same logic is applied except test both handle1 and handle2.
+ * For range sliders, the same logic is applied except testUtil both handle1 and handle2.
  */
-describe("`lock_to_ticks: true` mouse navigation test cases", function() {
+describe("`lock_to_ticks: true` mouse navigation testUtil cases", function() {
 	var initialValue = 3;
 	var initialRangeValues = [3, 7];
 	var tickValues = [0, 3, 5, 7, 10];
@@ -235,7 +235,7 @@ describe("`lock_to_ticks: true` mouse navigation test cases", function() {
 				percent: 45
 			}],
 
-			// Modify test data for RTL and reversed situations.
+			// Modify testUtil data for RTL and reversed situations.
 			altTestData: [{
 				willChange: false,
 				expectedValue: initialValue,
@@ -273,7 +273,7 @@ describe("`lock_to_ticks: true` mouse navigation test cases", function() {
 				expectedValue: [5, 7],
 				percent: 45
 			},
-			// More test data that will affect handle2
+			// More testUtil data that will affect handle2
 			{
 				willChange: true,
 				expectedValue: [3, 5],
@@ -292,7 +292,7 @@ describe("`lock_to_ticks: true` mouse navigation test cases", function() {
 				percent: 90
 			}],
 
-			// Modify test data for RTL and reversed situations.
+			// Modify testUtil data for RTL and reversed situations.
 			// Here, the order of the ticks matter when locking a handle to a tick
 			// when there are two ticks that are equal in distance to lock to.
 			altTestData: [{
@@ -312,7 +312,7 @@ describe("`lock_to_ticks: true` mouse navigation test cases", function() {
 				expectedValue: initialRangeValues,
 				percent: 35
 			},
-			// More test data that will affect handle2
+			// More testUtil data that will affect handle2
 			{
 				willChange: false,
 				expectedValue: initialRangeValues,
@@ -501,24 +501,24 @@ describe("`lock_to_ticks: true` mouse navigation test cases", function() {
  * ticks: [0, 3, 5, 7, 10]
  * step: 0.1
  * 
- * See description for mouse navigation tests for explanation for test setup values.
+ * See description for mouse navigation tests for explanation for testUtil setup values.
  * 
- * These tests are setup to test for all combinations of relevant slider configurations:
+ * These tests are setup to testUtil for all combinations of relevant slider configurations:
  * single/range, horizontal/vertical orientation, LTR/RTL, natural keys navigation,
  * ordered/reversed, and all key presses (left, up, right, down).
  * 
- * The test data is fairly straightforward and passes most configurations except for
- * special cases when using natural key navigation. For these cases, the test data
- * had to be 'inverted'. For example, the test data had to be inverted when the
+ * The testUtil data is fairly straightforward and passes most configurations except for
+ * special cases when using natural key navigation. For these cases, the testUtil data
+ * had to be 'inverted'. For example, the testUtil data had to be inverted when the
  * slider has a horizontal orientation with either RTL or reversed option set (but not both).
  * 
- * The test logic for sliders:
+ * The testUtil logic for sliders:
  * - Key to the left should change the value and lock to the tick to the left
  * - Key to the right should change the value and lock to the tick to the right
  * 
- * For range sliders, the same logic is applied except test both handle1 and handle2.
+ * For range sliders, the same logic is applied except testUtil both handle1 and handle2.
  */
-describe("`lock_to_ticks: true` keyboard navigation test cases", function() {
+describe("`lock_to_ticks: true` keyboard navigation testUtil cases", function() {
 	var initialValue = 3;
 	var initialRangeValues = [3, 7];
 	var tickValues = [0, 3, 5, 7, 10];

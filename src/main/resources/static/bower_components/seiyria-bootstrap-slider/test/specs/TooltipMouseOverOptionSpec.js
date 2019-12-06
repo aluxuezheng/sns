@@ -119,7 +119,7 @@ describe("'ticks_tooltip' Option tests", function() {
  * When the `ticks_tooltip` option is set to `true`, hovering over the ticks or handles
  * should show the tooltip above it with the value of the tick/handle.
  *
- * The test logic for sliders:
+ * The testUtil logic for sliders:
  * 1. Hover over the 1st tick
  * 2. Check if the tooltip is positioned correctly (left, top, right)
  * 3. Check if the tooltip should be showing
@@ -127,7 +127,7 @@ describe("'ticks_tooltip' Option tests", function() {
  * 5. Check if the slider value(s) haven't changed
  *
  */
-describe("`ticks_tooltip: true` mouse navigation test cases", function() {
+describe("`ticks_tooltip: true` mouse navigation testUtil cases", function() {
 	var initialValue = 3;
 	var initialRangeValues = [3, 7];
 	var tickValues = [0, 3, 5, 7, 10];

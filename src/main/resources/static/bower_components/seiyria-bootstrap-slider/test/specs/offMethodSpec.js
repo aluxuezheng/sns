@@ -6,7 +6,7 @@
 
 
 
-describe("'off()' test", function() {
+describe("'off()' testUtil", function() {
     var testSlider, eventHandlerTriggered, mouse;
 
     var onStart = function(){
